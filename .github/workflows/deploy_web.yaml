@@ -18,7 +18,7 @@ jobs:
       - run: flutter test
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
-          baseHref: /lottie-preview/
+          baseHref: /lottie_preview/
           webRenderer: canvaskit
           customArgs: >
             --version ${{ env.GITHUB_REF_NAME }}
