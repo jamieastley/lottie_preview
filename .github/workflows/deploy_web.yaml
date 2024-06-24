@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - debug-actions
 
 jobs:
   build:
@@ -16,9 +18,10 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter test
-      - uses: bluefireteam/flutter-gh-pages@v7
-        with:
-          baseHref: /lottie_preview/
-          webRenderer: canvaskit
-          customArgs: >
-            --version ${{ env.GITHUB_REF_NAME }}
+      - run: flutter pub run peanut --extra-args "--base-href=/lottie_preview/"
+      - run: git config user.name github-actions
+      - run: git config user.email github-actions@github.com
+      - run: git --work-tree build/web add --all
+      - run: git commit -m "Automatic deployment by github-actions"
+      - run: git push origin HEAD:gh-pages --force
+
