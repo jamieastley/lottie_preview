@@ -27,7 +27,27 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build Web
-        run: flutter build web --release --build-number ${{ github.run_number }} --base-href "/lottie_preview/"
+        run: flutter build web --wasm --release --build-number ${{ github.run_number }} --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Update COOP and COEP headers
+        run: |
+          echo '{
+            "headers": [
+              {
+                "source": "**/*",
+                "headers": [
+                  {
+                    "key": "Cross-Origin-Embedder-Policy",
+                    "value": "credentialless"
+                  },
+                  {
+                    "key": "Cross-Origin-Opener-Policy",
+                    "value": "same-origin"
+                  }
+                ]
+              }
+            ]
+          }' > build/web/_headers
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
