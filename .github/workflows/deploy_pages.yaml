@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: github-pages
+    environment: pull-requests
     permissions:
       contents: write
       pages: write
@@ -27,9 +27,9 @@ jobs:
       - name: Build Web
         run: flutter build web --release --wasm --base-href "/lottie-preview/"
 
-      - name: Deploy to FlutterWebHost
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           repository-name: jamieastley/lottie_preview
-          branch: github-pages
+          branch: ${{env.GITHUB_REF_NAME}}
           folder: build/web
