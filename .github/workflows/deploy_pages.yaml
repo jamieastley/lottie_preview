@@ -8,6 +8,10 @@ on:
     branches:
       - master
 
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,10 +29,10 @@ jobs:
       - run: flutter test
 
       - name: Build Web
-        run: flutter build web --release --base-href "/lottie_preview/"
+        run: flutter build web --release --base-href "/${{ env.BRANCH_NAME }}/"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: ${{github.ref_name}}
+          branch: ${{ env.BRANCH_NAME }}
           folder: build/web
