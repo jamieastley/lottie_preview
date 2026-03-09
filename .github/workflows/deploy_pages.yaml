@@ -30,6 +30,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          repository-name: jamieastley/lottie_preview
-          branch: ${{env.GITHUB_REF_NAME}}
+          branch: ${{github.ref_name}}
           folder: build/web
