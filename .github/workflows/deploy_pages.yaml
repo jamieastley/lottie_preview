@@ -1,8 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
-  #  TODO: run on push to master after testing
-  pull_request:
+  push:
     branches:
       - master
 
@@ -60,8 +59,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-#      name: github-pages TODO: revert later
-      name: pull-requests
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
