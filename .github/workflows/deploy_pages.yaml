@@ -23,7 +23,7 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Build Web
         run: flutter build web --wasm --release --build-number ${{ github.run_number }} --base-href "/${{ github.event.repository.name }}/"
